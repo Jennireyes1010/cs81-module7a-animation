@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading Animation Simulator</title>
+</head>
+<body style="font-family: monospace; text-align: center; padding-top: 100px; background-color: #f4f4f4;"> 
+  <div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div>
+  <div id="status">Please wait</div>
+
+  <script>
+    // Function controlling the loading animation logic
+    function runLoadingAnimation() {
+      //Gets loader div from the DOM to update its content
+      const loader = document.getElementById("loader");
+      //Gets status div from the DOM to update its content
+      const status = document.getElementById("status");
+      //Array of symbols to simulate loading animation
+      const frames = ["⏳", "⌛", ".", "..", "..."];
+      // Index to track the current frame
+      let index = 0;
+      // Count to track the number of completed cycles
+      let cycleCount = 0;
+      // Maximum number of cycles to run the animation
+      const maxCycles = 10;
+      //setInterval runs this block of code every 500 milliseconds 
+      const interval = setInterval(() => {
+        loader.textContent = frames[index % frames.length];
+        index++;
+        //Increment cycle count after completing one full cycle of frames
+        if (index % frames.length === 0) {
+          cycleCount++;
+        }
+        //Stop the animation after reaching maxCycles
+        if (cycleCount >= maxCycles) {
+          // clearInterval stops the setInterval from running further
+          clearInterval(interval);
+          // Update loader and status to indicate completion
+          loader.textContent = "✅";
+          // Change status text to "Done!"
+          status.textContent = "Done!";
+        }
+      }, 500);
+    }
+    // Start the loading animation when the script runs
+    runLoadingAnimation();
+    // New feature idea: Change background color gradually during loading that represents progress.
+    // This could be implemented by adding the following:
+    // const colors = ["#f4f4f4", "#e0e0e0", "#cccccc", "#b8b8b8", "#a4a4a4"];
+    // page.style.backgroundColor = colors[cycleCount % colors.length];
+    // page.style.backgroundColor = #a4a4a4; // Final color when done
+   
+  </script>
+
+</body>
+</html>
